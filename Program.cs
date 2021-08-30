@@ -24,8 +24,7 @@ namespace SimpleHTTPServer
                     {
                         try
                         {
-                            const int BUFFER_SIZE = 1024;
-                            byte[] buffer = new byte[BUFFER_SIZE];
+                            var sb = new StringBuilder();
 
                             using var stream = tcpClient.GetStream();
                             using var sr = new StreamReader(stream);
@@ -35,8 +34,14 @@ namespace SimpleHTTPServer
                             {
                                 string line = sr.ReadLine();
                                 Console.WriteLine(line);
-                                sw.WriteLine(line);
-                                sw.Flush();
+                                sb.AppendLine(line);
+
+                                if(line == String.Empty)
+                                {
+                                    sw.Write(ProcessClientInput(sb.ToString()));
+                                    sw.Flush();
+                                    break;
+                                }
                             }
                         }
                         catch (Exception ex)
@@ -50,6 +55,21 @@ namespace SimpleHTTPServer
             {
                 Console.WriteLine(ex);
             }
+        }
+
+        private static string ProcessClientInput(string v)
+        {
+            return @"HTTP/1.1 200 OK
+Date: Mon, 27 Jul 2009 12:28:53 GMT
+Server: Apache
+Last - Modified: Wed, 22 Jul 2009 19:15:56 GMT
+ETag: ""34aa387-d-1568eb00""
+Accept - Ranges: bytes
+Content - Length: 51
+Vary: Accept - Encoding
+Content - Type: text / plain
+
+Hello World! My payload includes a trailing CRLF.";
         }
     }
 }
