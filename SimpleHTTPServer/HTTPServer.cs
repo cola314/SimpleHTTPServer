@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SimpleHTTPServer.HTTP
 {
-    class HTTPServer
+    public class HTTPServer
     {
         Action<Request, Response> proc_;
 

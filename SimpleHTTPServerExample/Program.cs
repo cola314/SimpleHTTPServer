@@ -1,12 +1,7 @@
 ﻿using SimpleHTTPServer.HTTP;
 using System;
-using System.IO;
-using System.Net;
-using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace SimpleHTTPServer
+namespace SimpleHTTPServerExample
 {
     class Program
     {
@@ -14,12 +9,12 @@ namespace SimpleHTTPServer
         {
             new HTTPServer((req, res) =>
             {
-                if(req.Path == "/" && req.Method == "GET")
+                if (req.Path == "/" && req.Method == "GET")
                 {
                     res.Headers.TryAdd("Content-Type", "text/plain");
                     res.Body = "Hello World";
                 }
-                else if(req.Path == "/" && req.Method == "POST")
+                else if (req.Path == "/" && req.Method == "POST")
                 {
                     res.Headers.TryAdd("Content-Type", "text/json");
                     res.Body = req.Body;
