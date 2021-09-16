@@ -21,7 +21,7 @@ namespace SimpleHTTPServer.HTTP
 
         public async Task Start(int port)
         {
-            TcpListener listener = new TcpListener(IPAddress.Any, 80);
+            TcpListener listener = new TcpListener(IPAddress.Any, port);
             listener.Start();
 
             while (true)
